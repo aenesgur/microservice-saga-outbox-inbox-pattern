@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: order-service
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      request.timeout.ms: 300000
+      heartbeat.interval.ms: 1000
+      max.poll.interval.ms: 900000
+      max.poll.records: 100
+      session.timeout.ms: 600000
+      group-id: order-id
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+
+  jpa:
+    hibernate.ddl-auto: update
+
+  datasource:
+    url: jdbc:postgresql://localhost:5431/postgres
+    username: orderservice-user
+    password: 123456
+
+  redis:
+    host: localhost
+    port: 6379
+
+  redisson:
+    singleServerConfig:
+      address: "redis://${spring.redis.host}:${spring.redis.port}"
+      timeout: 5000
+
+queue:
+  kafka:
+    group-id: order-id
+    bootstrap-servers: localhost:9092
+    topic:
+      order-create-topic: order-create-topic
+      payment-complete-topic: payment-complete-topic
+      payment-fail-topic: payment-fail-topic
+server:
+  port: 5050
+
+outbox:
+  lock:
+    key: order-outbox-lock
+  polling:
+    interval: 30000
