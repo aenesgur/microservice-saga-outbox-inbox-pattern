@@ -1,5 +1,5 @@
 # Microservice Application with Saga, Outbox, Inbox, Distributed Locking Design Patterns
-Microservice boilerplate application developed with Outbox/Inbox pattern and Distributed Caching
+Microservice boilerplate application developed with Outbox/Inbox pattern and Distributed Locking
 ### Technologies
 * Spring Boot
 * Spring Data
@@ -17,10 +17,10 @@ The component processes messages from its inbox in a separate thread, and once i
 
 This pattern can help improve performance and reliability by decoupling the sending and receiving of messages, reducing contention and preventing message loss. It also enables components to operate asynchronously, allowing them to continue processing messages from their inbox while messages from their outbox are being sent.
 
-#### What is Distributed Caching?
-Distributed caching is a technique used in distributed computing to improve performance and scalability by caching frequently accessed data in memory across a network of distributed nodes.
+#### What is Distributed Locking?
+Distributed locking is a technique used in distributed computing systems to ensure that multiple processes or threads don't interfere with each other when accessing shared resources, such as data or files. The basic idea behind distributed locking is to use a shared lock that multiple processes or threads can acquire and release as needed.
 
-In a distributed caching system, a cache layer is placed between the application and the database or data source. When the application needs to access data, it first checks the cache layer to see if the requested data is available. If the data is found in the cache, the application can retrieve it directly from the cache, which can be much faster than accessing the original data source. If the data is not found in the cache, the application retrieves it from the original data source and stores it in the cache for future use.
+Distributed locking is important in distributed systems because it helps prevent conflicts and inconsistencies that can arise when multiple processes or threads try to access the same shared resource simultaneously. By using a distributed lock, each process or thread can take turns accessing the shared resource in a coordinated and orderly way, which helps maintain system stability and reliability.
 
 ### System Diagram
 ![microservice-saga-outbox-inbox-pattern](https://user-images.githubusercontent.com/47754791/229523982-685a5dba-78ee-41b3-b64a-6cc8bf9210eb.jpg)
