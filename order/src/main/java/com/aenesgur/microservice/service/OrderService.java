@@ -46,7 +46,7 @@ public class OrderService {
 
     public void updateOrderForPaymentResultEvent(PaymentResultEvent paymentResultEvent){
         Order order = orderRepository.findByRef(paymentResultEvent.getOrderRef()).orElseThrow(() -> new OrderNotFoundException("order not found for this ref: ".concat(String.valueOf(paymentResultEvent.getOrderRef()))));
-        order.setStatus(paymentResultEvent.getStatus().name().equals(PaymentResultStatus.PAID.name()) ? OrderStatus.PAID : OrderStatus.CANCELLED);
+        order.setStatus(paymentResultEvent.getStatus().equals(PaymentResultStatus.PAID) ? OrderStatus.PAID : OrderStatus.CANCELLED);
         order.setMessage(paymentResultEvent.getMessage());
     }
 

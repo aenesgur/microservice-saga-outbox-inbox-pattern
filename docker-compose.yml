@@ -1,5 +1,49 @@
 version: '3'
 services:
+
+  ### Services ###
+  order-service:
+    container_name: order-service
+    image: 'aenesgur/dp-mc/order-service-image'
+    build:
+      context: ./order/
+    ports:
+      - "4041:4041"
+    environment:
+      - server.port=4041
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-orderservice:5431/order-service
+      - SPRING_DATASOURCE_USERNAME=orderservice-user
+      - SPRING_DATASOURCE_PASSWORD=123456
+      - spring.redis.host=redis-master
+      - spring.redis.port=6379
+      - spring.kafka.bootstrap-servers=kafka:29092
+
+    depends_on:
+      - postgres-orderservice
+      - kafka
+      - redis-master
+
+  payment-service:
+    container_name: payment-service
+    image: 'aenesgur/dp-mc/payment-service-image'
+    build:
+      context: ./payment/
+    ports:
+      - "4042:4042"
+    environment:
+      - server.port=4042
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-paymentservice:5433/payment-service
+      - SPRING_DATASOURCE_USERNAME=paymentservice-user
+      - SPRING_DATASOURCE_PASSWORD=123456
+      - spring.redis.host=redis-master
+      - spring.redis.port=6379
+      - kafka.bootstrap-servers=kafka:29092
+
+    depends_on:
+      - postgres-paymentservice
+      - kafka
+      - redis-master
+
   ### Dependencies ###
   postgres-orderservice:
     container_name: postgres-orderservice

@@ -13,6 +13,10 @@ target/
 .springBeans
 .sts4-cache
 
+/postgres-orderservice
+/postgres-paymentservice
+/redis
+
 ### IntelliJ IDEA ###
 .idea
 *.iws

@@ -106,7 +106,7 @@ public class PaymentService {
                 .cardNo(payment.getCardNo())
                 .totalPrice(payment.getTotalPrice())
                 .idempotentToken(idempotentToken)
-                .status(payment.getStatus().name().equals(PaymentStatus.PAID) ? PaymentResultStatus.PAID : PaymentResultStatus.FAILED)
+                .status(payment.getStatus().equals(PaymentStatus.PAID) ? PaymentResultStatus.PAID : PaymentResultStatus.FAILED)
                 .message(message)
                 .build();
     }
